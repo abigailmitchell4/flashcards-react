@@ -11,7 +11,7 @@ class App extends React.Component {
       {id:2, question:"Question 2", answer: "Answer 2"},
       {id:3, question:"Question 3", answer: "Answer 3"}
     ],
-    showForm: true
+    showForm: true,
   };
 
   getId = () => {
@@ -21,6 +21,18 @@ class App extends React.Component {
   addCard = ({ question, answer }) => {
     let card  = { id: this.getId(), question, answer };
     this.setState({ cards: [...this.state.cards, card] });
+  };
+
+  editCard = (newCard) => {
+    const cards = this.state.cards.map( oldCard => {
+      if (oldCard.id === newCard.id)
+        return newCard
+      return oldCard;
+    });
+    this.setState({ cards });
+
+    // this.setState({ cards: [...this.state.cards, newCard] });
+    
   };
 
   removeCard = (id) => {
@@ -52,6 +64,7 @@ class App extends React.Component {
           // showPrevCard = {this.boundShowPrevCard}
           // currentCard={this.state.currentCard}
           removeCard={ this.removeCard }
+          editCard={ this.editCard }
         />
       </Container>
     );

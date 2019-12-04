@@ -3,12 +3,21 @@ import { Form } from 'semantic-ui-react';
 
 class CardForm extends React.Component {
 
-  state = { question: "", answer: ""}; 
+  state = { question: "", answer: ""} 
+
+  componentDidMount() {
+    if (this.props.id) 
+      this.setState({ question: this.props.question, answer: this.props.answer})
+  };
 
   handleSubmit = (e) => {
     //make sure form doesn't auto submit:
     e.preventDefault();
-    this.props.addCard(this.state);
+    if (this.props.id)
+      this.props.editCard({id: this.props.id, question: this.state.question, answer: this.state.answer})
+    else
+      this.props.addCard(this.state);
+      this.setState({ question: "", answer: ""})
   };
 
   handleChange = (e) => {

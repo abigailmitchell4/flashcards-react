@@ -1,9 +1,14 @@
-import React from 'react';
-import { Button, Grid } from "semantic-ui-react";
+import React, {Fragment} from 'react';
+import CardForm from './CardForm';
+import { Button, Card } from "semantic-ui-react";
 
 class Flashcard extends React.Component {
   state = {
-    showAnswer: false
+    showAnswer: false,
+    editing: false
+  }
+  toggleEdit = () => {
+    this.setState({editing: !this.state.editing})
   }
 
   toggleCard = () => {
@@ -11,16 +16,41 @@ class Flashcard extends React.Component {
   };
 
   render() {
-    const content = this.state.showAnswer ? this.props.answer : this.props.question
+    const {id, question, answer, removeCard, editCard} = this.props
+
+    const content = this.state.showAnswer ? answer : question
+
     return (
-      <Grid.Column>
-        <div onClick={this.toggleCard} className="card-container">
-          <h2>{content}</h2>
-          <Button className="delete" color="red" onClick={() => this.props.removeCard(this.props.id) }>
-              Delete
+      
+        <Card>
+            {
+              this.state.editing ? 
+            <>
+              <CardForm 
+              question={question} 
+              answer={answer} 
+              id={id} 
+              editCard={editCard}
+              toggleEdit={this.toggleEdit}
+              /> 
+            </>
+              : 
+              <div>
+                <Card.Content onClick={this.toggleCard} header={content} as="h2"/>
+              </div>
+            }
+        <Card.Content extra className="ui two buttons">
+          <div className="ui two buttons">
+          <Button className="delete" color="red" onClick={() => removeCard(id) }>
+            Delete
           </Button>
-        </div>
-      </Grid.Column>
+          <Button color="blue" onClick={this.toggleEdit}>
+            Edit
+          </Button>
+          </div>
+          </Card.Content>
+        </Card>
+    
     )
   }
 };

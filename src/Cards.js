@@ -1,18 +1,18 @@
 import React from 'react';
 import Flashcard from './Flashcard';
-import { Grid, Card } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 
-const Cards = ({ cards, removeCard }) => (
-  <Grid>
-    <Grid.Row columns={3}>
+const Cards = ({ cards, removeCard, editCard }) => (
+  
+    <Card.Group itemsPerRow={3}>
       {
         cards.map( card => ( 
           //define new prop for remove contact and pass it removeContact prop(remember this removeContact prop is a function defined in App.js)
-          <Flashcard key={card.id} {...card} removeCard={removeCard}/>
+          <Flashcard key={card.id} {...card} removeCard={removeCard} editCard={editCard}/>
         ))
       }
-   </Grid.Row>
-  </Grid>
+   </Card.Group>
+  
 )
 
 export default Cards;
