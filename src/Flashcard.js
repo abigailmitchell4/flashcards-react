@@ -1,6 +1,6 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import CardForm from './CardForm';
-import { Button, Card } from "semantic-ui-react";
+import { Button, Grid } from "semantic-ui-react";
 
 class Flashcard extends React.Component {
   state = {
@@ -14,15 +14,15 @@ class Flashcard extends React.Component {
   toggleCard = () => {
     this.setState({showAnswer: !this.state.showAnswer});
   };
+    
 
   render() {
-    const {id, question, answer, removeCard, editCard} = this.props
+    const {id, question, answer, removeCard, editCard } = this.props
 
     const content = this.state.showAnswer ? answer : question
 
     return (
-      
-        <Card>
+      <Grid.Column className="card-container">
             {
               this.state.editing ? 
             <>
@@ -35,12 +35,12 @@ class Flashcard extends React.Component {
               /> 
             </>
               : 
-              <div>
-                <Card.Content onClick={this.toggleCard} header={content} as="h2"/>
-              </div>
+             
+            <div className="content" onClick={this.toggleCard}>{content}</div>
+              
             }
-        <Card.Content extra className="ui two buttons">
-          <div className="ui two buttons">
+        <div>
+          <div className="ui two buttons mini">
           <Button className="delete" color="red" onClick={() => removeCard(id) }>
             Delete
           </Button>
@@ -48,9 +48,8 @@ class Flashcard extends React.Component {
             Edit
           </Button>
           </div>
-          </Card.Content>
-        </Card>
-    
+        </div>
+        </Grid.Column>
     )
   }
 };

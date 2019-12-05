@@ -12,6 +12,7 @@ class App extends React.Component {
       {id:3, question:"Question 3", answer: "Answer 3"}
     ],
     showForm: true,
+    currentCard: 0
   };
 
   getId = () => {

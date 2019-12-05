@@ -33,7 +33,10 @@
   padding: 10px;
   border-radius: 10%;
 }
-
+.content {
+  align-self: center;
+  height: 140px;
+}
 /* .delete {
   position: absolute;
   top: 160px;
